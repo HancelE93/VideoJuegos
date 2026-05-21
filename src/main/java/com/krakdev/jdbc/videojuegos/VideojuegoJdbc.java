@@ -27,7 +27,7 @@ public class VideojuegoJdbc {
 		try {
 			con = Conexion.getConnection();
 
-			String sql = "insert into Videojuego (codigo, nombre, plataforma, precio, disponible, genero) values(?,?,?,?,?.?)";
+			String sql = "insert into videojuegos (codigo, nombre, plataforma, precio, disponible, genero) values(?,?,?,?,?,?)";
 
 			ps = con.prepareStatement(sql);
 
@@ -65,7 +65,7 @@ public class VideojuegoJdbc {
 		try {
 			con = Conexion.getConnection();
 
-			String sql = "select * from Videojuegos";
+			String sql = "select * from videojuegos";
 
 			PreparedStatement ps = con.prepareStatement(sql);
 
@@ -100,7 +100,7 @@ public class VideojuegoJdbc {
 
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "select * from Videojuego where codigo = ?";
+		String sql = "select * from videojuegos where codigo = ?";
 		ResultSet rs = null;
 		Videojuego videojuego = null;
 
@@ -135,7 +135,7 @@ public class VideojuegoJdbc {
 			boolean nuevoDisponible, String nuevoGenero) {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "update Videojuego set nombre = ?, plataforma = ?, precio =?, disponibilidad=?, genero=? where codigo = ?";
+		String sql = "update videojuegos set nombre = ?, plataforma = ?, precio =?, disponible=?, genero=? where codigo = ?";
 		ResultSet rs = null;
 		Videojuego videojuego = null;
 
@@ -174,7 +174,7 @@ public class VideojuegoJdbc {
 
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "delete from Videojuego where codigo = ?";
+		String sql = "delete from videojuegos where codigo = ?";
 		ResultSet rs = null;
 
 		try {
