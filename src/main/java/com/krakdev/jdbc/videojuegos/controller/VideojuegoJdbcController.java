@@ -38,16 +38,19 @@ public class VideojuegoJdbcController {
 		return servicio.listar();
 	}
 
+	
 	@GetMapping("/{codigo}")
 	public Videojuego buscar(@PathVariable String codigo) {
 		return servicio.buscarPorCodigo(codigo);
 	}
 
+	
 	@PutMapping("/{codigo}")
 	public Videojuego actualizar(@PathVariable String codigo, @RequestBody Videojuego videojuegoActualizar) {
 		return servicio.actualizar(codigo, videojuegoActualizar);
 
 	}
+	
 
 	@DeleteMapping("/{codigo}")
 	public boolean eliminar(@PathVariable String codigo) {
