@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import com.krakdev.jdbc.Conexion;
 import com.krakdev.videojuegos.entidades.Videojuego;
 
+
 public class VideojuegoJdbc {
 
 	private static final Logger log = LogManager.getLogger(VideojuegoJdbc.class);
@@ -132,4 +133,45 @@ public class VideojuegoJdbc {
 		return videojuego;
 	}
 
+	
+	public static Videojuego actualizar (String codigo, String nuevoNombre, String nuevaPlataforma, double nuevoPrecio,
+			boolean nuevoDisponible, String nuevoGenero) {
+		Connection con =null;
+		PreparedStatement ps = null;
+		String sql = "update Videojuego set nombre = ?, plataforma = ?, precio =?, disponibilidad=?, genero=? where codigo = ?";
+		ResultSet rs = null;
+		Videojuego videojuego = null;
+		
+		
+		
+		try {
+			con = Conexion.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, nuevoNombre);
+			ps.setString(2, nuevaPlataforma);
+			ps.setDouble(3, nuevoPrecio);
+			ps.setBoolean(4, nuevoDisponible);
+			ps.setString(5, nuevoGenero);
+			ps.setString(6,codigo);
+			
+			
+			int fila = ps.executeUpdate();
+			
+			videojuego= new Videojuego(codigo, nuevoNombre, nuevaPlataforma, nuevoPrecio, nuevoDisponible, nuevoGenero);
+			log.info("Video juego actualizado");
+			
+		}catch (Exception e) {
+			log.error("error al actualizar el video juego", e.getMessage());
+			throw new RuntimeException("Error al actualizar el video juego " + e.getMessage());
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return videojuego;
+	}
 }
